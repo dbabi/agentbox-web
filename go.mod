@@ -11,7 +11,7 @@ require (
 	charm.land/ssh v0.4.3
 	charm.land/wish/v2 v2.0.5
 	github.com/charmbracelet/colorprofile v0.4.3
-	github.com/charmbracelet/x/ansi v0.11.9
+	github.com/charmbracelet/x/ansi v0.11.10
 	golang.org/x/crypto v0.59.0
 	golang.org/x/time v0.16.0
 )
