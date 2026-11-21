@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'">
+<meta name="color-scheme" content="dark light">
+<meta name="referrer" content="no-referrer">
+<title>security · agentbox</title>
+<meta name="description" content="the threat: prompt injection from untrusted text.">
+<meta property="og:title" content="security · agentbox">
+<meta property="og:description" content="the threat: prompt injection from untrusted text.">
+<meta property="og:image" content="https://dbabi.github.io/agentbox-web/social-preview.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+<link rel="stylesheet" href="../style.css">
+<script src="../keys.js" defer></script>
+</head>
+<body data-cmd="go run github.com/dbabi/agentbox-web@latest">
+<a class="skip" href="#main">skip to content</a>
+<header class="top">
+<nav aria-label="pages"><ul>
+<li class="brand"><span aria-hidden="true">▣</span> agentbox</li>
+<li><a href="../" data-slug="home"><span class="k" aria-hidden="true">1</span>home</a></li>
+<li><a href="../install/" data-slug="install"><span class="k" aria-hidden="true">2</span>install</a></li>
+<li><a href="../how/" data-slug="how"><span class="k" aria-hidden="true">3</span>how</a></li>
+<li><a href="../security/" data-slug="security" aria-current="page"><span class="k" aria-hidden="true">4</span>security</a></li>
+<li><a href="../roadmap/" data-slug="roadmap"><span class="k" aria-hidden="true">5</span>roadmap</a></li>
+<li><a href="../docs/" data-slug="docs"><span class="k" aria-hidden="true">6</span>docs</a></li>
+<li><a href="../snib/" data-slug="snib"><span class="k" aria-hidden="true">7</span>snib</a></li>
+<li class="ver">v0 alpha</li>
+</ul></nav>
+</header>
+<main id="main" tabindex="-1">
+<figure class="snib"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="128" height="128" shape-rendering="crispEdges" role="img"><title>Snib, the agentbox mascot, guarding with a gold shield</title><path fill="#f6f2ff" d="M13 0h5v1h-5zM12 1h2v1h-2zM17 1h2v1h-2zM12 2h1v1h-1zM14 2h3v1h-3zM18 2h1v1h-1zM11 3h2v1h-2zM14 3h3v1h-3zM18 3h2v1h-2zM11 4h1v1h-1zM19 4h1v1h-1zM11 5h1v1h-1zM19 5h1v1h-1zM11 6h1v1h-1zM19 6h1v1h-1zM11 7h1v1h-1zM19 7h1v1h-1zM11 8h1v1h-1zM19 8h1v1h-1zM11 9h1v1h-1zM19 9h1v1h-1zM6 10h9v1h-9zM16 10h12v1h-12zM5 11h2v1h-2zM27 11h2v1h-2zM4 12h2v1h-2zM28 12h1v1h-1zM3 13h2v1h-2zM28 13h1v1h-1zM2 14h2v1h-2zM28 14h1v1h-1zM2 15h1v1h-1zM28 15h4v1h-4zM2 16h1v1h-1zM31 16h1v1h-1zM2 17h1v1h-1zM31 17h1v1h-1zM2 18h1v1h-1zM31 18h1v1h-1zM2 19h1v1h-1zM31 19h1v1h-1zM2 20h1v1h-1zM31 20h1v1h-1zM2 21h1v1h-1zM31 21h1v1h-1zM2 22h1v1h-1zM31 22h1v1h-1zM2 23h1v1h-1zM31 23h1v1h-1zM2 24h1v1h-1zM30 24h2v1h-2zM2 25h1v1h-1zM29 25h2v1h-2zM2 26h1v1h-1zM28 26h2v1h-2zM2 27h1v1h-1zM25 27h1v1h-1zM27 27h2v1h-2zM2 28h2v1h-2zM24 28h4v1h-4zM3 29h2v1h-2zM11 29h5v1h-5zM22 29h3v1h-3zM4 30h2v1h-2zM10 30h2v1h-2zM15 30h2v1h-2zM21 30h2v1h-2zM5 31h6v1h-6zM16 31h6v1h-6z"/><path fill="#5a43b0" d="M14 1h3v1h-3zM13 2h1v1h-1zM17 2h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM15 10h1v1h-1zM15 11h1v1h-1zM15 12h1v1h-1zM15 13h1v1h-1zM24 26h1v1h-1zM4 27h20v1h-20z"/><path fill="#2a1f45" d="M12 4h7v1h-7zM12 5h1v1h-1zM18 5h1v1h-1zM12 6h1v1h-1zM15 6h1v1h-1zM18 6h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM18 7h1v1h-1zM12 8h1v1h-1zM18 8h1v1h-1zM12 9h7v1h-7zM7 11h8v1h-8zM16 11h11v1h-11zM6 12h1v1h-1zM27 12h1v1h-1zM5 13h1v1h-1zM27 13h1v1h-1zM4 14h1v1h-1zM27 14h1v1h-1zM3 15h1v1h-1zM27 15h1v1h-1zM3 16h1v1h-1zM22 16h9v1h-9zM3 17h1v1h-1zM22 17h1v1h-1zM30 17h1v1h-1zM3 18h1v1h-1zM22 18h1v1h-1zM30 18h1v1h-1zM3 19h1v1h-1zM22 19h1v1h-1zM25 19h3v1h-3zM30 19h1v1h-1zM3 20h1v1h-1zM7 20h2v1h-2zM18 20h2v1h-2zM22 20h1v1h-1zM25 20h3v1h-3zM30 20h1v1h-1zM3 21h1v1h-1zM7 21h1v1h-1zM9 21h2v1h-2zM16 21h1v1h-1zM18 21h2v1h-2zM22 21h1v1h-1zM26 21h1v1h-1zM30 21h1v1h-1zM3 22h1v1h-1zM7 22h4v1h-4zM16 22h4v1h-4zM22 22h1v1h-1zM26 22h1v1h-1zM30 22h1v1h-1zM3 23h1v1h-1zM7 23h2v1h-2zM10 23h1v1h-1zM16 23h2v1h-2zM19 23h1v1h-1zM22 23h1v1h-1zM30 23h1v1h-1zM3 24h1v1h-1zM8 24h2v1h-2zM12 24h1v1h-1zM14 24h1v1h-1zM17 24h2v1h-2zM23 24h1v1h-1zM29 24h1v1h-1zM3 25h1v1h-1zM13 25h1v1h-1zM24 25h1v1h-1zM28 25h1v1h-1zM3 26h1v1h-1zM25 26h1v1h-1zM27 26h1v1h-1zM3 27h1v1h-1zM24 27h1v1h-1zM26 27h1v1h-1zM4 28h20v1h-20zM5 29h1v1h-1zM10 29h1v1h-1zM16 29h1v1h-1zM21 29h1v1h-1zM6 30h4v1h-4zM17 30h4v1h-4z"/><path fill="#f6f2ff" d="M13 5h1v1h-1zM7 12h1v1h-1zM6 13h1v1h-1zM5 14h1v1h-1zM4 15h19v1h-19zM5 17h2v1h-2zM23 17h2v1h-2zM5 18h1v1h-1zM23 18h1v1h-1zM8 21h1v1h-1zM17 21h1v1h-1zM12 25h1v1h-1z"/><path fill="#ffcc4d" d="M14 5h4v1h-4zM13 6h2v1h-2zM16 6h1v1h-1zM13 7h2v1h-2zM16 7h1v1h-1zM25 17h4v1h-4zM24 18h5v1h-5zM23 19h2v1h-2zM28 19h1v1h-1zM23 20h2v1h-2zM28 20h1v1h-1zM23 21h3v1h-3zM27 21h2v1h-2zM23 22h3v1h-3zM27 22h2v1h-2zM23 23h5v1h-5zM24 24h4v1h-4zM25 25h2v1h-2z"/><path fill="#e0902f" d="M17 6h1v1h-1zM17 7h1v1h-1zM13 8h5v1h-5zM29 17h1v1h-1zM29 18h1v1h-1zM29 19h1v1h-1zM29 20h1v1h-1zM29 21h1v1h-1zM29 22h1v1h-1zM28 23h2v1h-2zM28 24h1v1h-1zM27 25h1v1h-1zM26 26h1v1h-1z"/><path fill="#cfc3ff" d="M8 12h7v1h-7zM16 12h10v1h-10zM7 13h7v1h-7zM17 13h8v1h-8zM6 14h18v1h-18z"/><path fill="#7259d1" d="M26 12h1v1h-1zM14 13h1v1h-1zM16 13h1v1h-1zM25 13h2v1h-2zM24 14h3v1h-3zM23 15h4v1h-4zM9 23h1v1h-1zM18 23h1v1h-1zM23 25h1v1h-1zM23 26h1v1h-1zM7 29h3v1h-3zM18 29h3v1h-3z"/><path fill="#a48df5" d="M4 16h18v1h-18zM4 17h1v1h-1zM7 17h15v1h-15zM4 18h1v1h-1zM6 18h16v1h-16zM4 19h18v1h-18zM4 20h3v1h-3zM9 20h9v1h-9zM20 20h2v1h-2zM4 21h3v1h-3zM11 21h5v1h-5zM20 21h2v1h-2zM4 22h3v1h-3zM11 22h5v1h-5zM20 22h2v1h-2zM4 23h3v1h-3zM11 23h5v1h-5zM20 23h2v1h-2zM4 24h1v1h-1zM7 24h1v1h-1zM10 24h2v1h-2zM13 24h1v1h-1zM15 24h2v1h-2zM19 24h1v1h-1zM22 24h1v1h-1zM4 25h8v1h-8zM14 25h9v1h-9zM4 26h19v1h-19zM6 29h1v1h-1zM17 29h1v1h-1z"/><path fill="#ff8fb8" d="M5 24h2v1h-2zM20 24h2v1h-2z"/></svg></figure>
+<h1 class="ln c" tabindex="-1">~/security</h1>
+<p class="ln c" tabindex="-1">the threat: prompt injection from untrusted text.</p>
+<p class="ln c" tabindex="-1">web pages, issues and package READMEs can carry instructions.</p>
+<p class="ln c" tabindex="-1">a hijacked task should find nothing to steal and no way to send it out.</p>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">enforced today</p>
+<ul class="b">
+<li class="ln" tabindex="-1">host firewall: each service user reaches only its own destinations. fwcheck restores an altered table. <span class="tag t-ok">[built]</span></li>
+<li class="ln" tabindex="-1">hash-chained audit log. agentbox audit verify checks the chain. with auditd down, rootd runs nothing. <span class="tag t-ok">[built]</span></li>
+<li class="ln" tabindex="-1">rootd resolver: refuses private and special-purpose answers for the brokers. <span class="tag t-ok">[built]</span></li>
+<li class="ln" tabindex="-1">disk encryption with LUKS2, and an offline recovery key. <span class="tag t-ok">[built]</span></li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">designed, not built</p>
+<ul class="b">
+<li class="ln" tabindex="-1">brokers hold the keys. no credential exists inside a task. <span class="tag t-dim">[designed]</span></li>
+<li class="ln" tabindex="-1">human-signed operations, bound to their exact inputs. <span class="tag t-dim">[designed]</span></li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">known gaps</p>
+<ul class="b">
+<li class="ln" tabindex="-1">no inbound filtering. SSH and any other listener are open to your LAN. do not give the box a public IP.</li>
+<li class="ln" tabindex="-1">no automatic security updates. an admin runs os plan and os apply by hand.</li>
+<li class="ln" tabindex="-1">in tpm2 mode, a thief with the whole machine can unlock the disk. use tpm2+tang.</li>
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/docs/wiki/Security-Model.md">Security model</a></li>
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/docs/wiki/Encryption-and-Recovery.md">Encryption and recovery</a></li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">this site</p>
+<ul class="b">
+<li class="ln" tabindex="-1">no login, no cookies, no analytics, no third-party requests.</li>
+<li class="ln" tabindex="-1">the web page keeps one localStorage flag, for the keys toggle. nothing else.</li>
+<li class="ln" tabindex="-1">the SSH version is read-only and listens on 127.0.0.1 by default.</li>
+<li class="ln" tabindex="-1">it has no shell, no port or agent forwarding and no file transfer. the only commands are page names.</li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">found a vulnerability? report it privately. do not open a public issue.</p>
+<ul class="b">
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/SECURITY.md">SECURITY.md</a></li>
+</ul>
+</main>
+<footer class="bot">
+<p id="out" class="out" aria-live="polite"></p>
+<div class="row">
+<label for="prompt" class="ps"><span class="u">snib@agentbox</span><span class="at">:</span><span class="w">~/security</span>$</label>
+<span class="field"><input id="prompt" maxlength="64" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="out"><span class="caret" aria-hidden="true"></span></span>
+<span class="chip">early alpha · VMs only · no agent runtime yet</span>
+<span class="hints" aria-hidden="true">j/k move  enter open  / prompt</span>
+<button type="button" class="js hb" id="helpbtn" hidden>? help</button>
+</div>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h"># keys</h2>
+<dl>
+<dt>1-7</dt><dd>jump to a tab</dd>
+<dt>h l, ← →, [ ]</dt><dd>previous or next tab</dd>
+<dt>j k, ↓ ↑</dt><dd>move the line cursor</dd>
+<dt>g G</dt><dd>top or bottom</dd>
+<dt>space</dt><dd>page down</dd>
+<dt>enter</dt><dd>open a link, or copy a $ line</dd>
+<dt>c</dt><dd>copy go run github.com/dbabi/agentbox-web@latest</dd>
+<dt>/ or :</dt><dd>focus the prompt: try help, ls, cd security, keys off</dd>
+<dt>esc</dt><dd>leave the prompt, close help</dd>
+<dt>?</dt><dd>this help</dd>
+<dt>m</dt><dd>pause or play motion</dd>
+</dl>
+<p># single-key shortcuts never fire in the prompt or with ctrl, alt or cmd held.</p>
+<p><button type="button" id="keys">keys: on</button> <span class="dim">turn them off if they get in your way. saved in this browser.</span></p>
+<form method="dialog"><button>close (esc)</button></form>
+</dialog>
+</body>
+</html>

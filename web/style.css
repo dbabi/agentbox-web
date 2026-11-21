@@ -1,0 +1,174 @@
+/* agentbox site. Colors are the Snib palette only (mascot/README.md). Contrast ratios are WCAG, on the page background. */
+:root {
+  --bg: #2a1f45;     /* Ink */
+  --fg: #f6f2ff;     /* Highlight, 13.8:1 */
+  --dim: #cfc3ff;    /* Light, 9.3:1 */
+  --link: #a48df5;   /* Body, 5.6:1, always underlined */
+  --accent: #ffcc4d; /* Gold, 10.1:1: active tab, cursor bar, focus, caret */
+  --rule: #7259d1;   /* Shade: rules only, never text */
+  --cur-bg: #5a43b0; /* Deep shade: cursor row; only Highlight text on it, 6.7:1 */
+  --cur-fg: #f6f2ff;
+  --warn: #e0902f;   /* Gold shade, 5.9:1 */
+  --err: #ff8fb8;    /* Blush, 7.2:1 */
+  --ok: #7cf5d0;     /* Mint, 11.5:1 */
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  /* Highlight page, Ink text. Gold and Mint fail on light, so tags become chips with Ink text instead. */
+  :root {
+    --bg: #f6f2ff;
+    --fg: #2a1f45;     /* 13.8:1 */
+    --dim: #5a43b0;    /* 6.7:1 */
+    --link: #5a43b0;
+    --accent: #5a43b0;
+    --rule: #7259d1;   /* 4.7:1 */
+    --cur-bg: #cfc3ff; /* Ink on Light, 9.3:1 */
+    --cur-fg: #2a1f45;
+    --warn: #2a1f45;
+    --err: #2a1f45;
+    --ok: #2a1f45;
+    color-scheme: light;
+  }
+  .tag { color: var(--fg) !important; background: var(--t); }
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--fg); }
+body {
+  margin: 0;
+  font: 1rem/1.6 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  padding-bottom: 4em;
+}
+a { color: var(--link); text-underline-offset: .2em; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, p, pre, figure, ul, ol, dl { margin: 0; }
+h1, h2 { font-size: 1em; font-weight: normal; }
+.dim { color: var(--dim); }
+
+.skip { position: absolute; left: 1ch; top: -3em; z-index: 9; background: var(--bg); padding: 0 1ch; }
+.skip:focus { top: .4em; }
+
+/* (1) the tab bar */
+.top { position: sticky; top: 0; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--rule); }
+.top ul { display: flex; list-style: none; padding: 0; height: 40px; overflow-x: auto; white-space: nowrap; }
+.top li { display: flex; flex: none; border-right: 1px solid var(--rule); }
+.top li > *, .brand { display: flex; align-items: center; padding: 0 1.5ch; color: var(--fg); text-decoration: none; }
+.top a:focus-visible { outline-offset: -2px; }
+.top a[aria-current] { color: var(--accent); box-shadow: inset 0 -2px var(--accent); }
+.k { color: var(--dim); margin-right: 1ch; }
+.top a[aria-current] .k { color: inherit; }
+.top .ver { align-items: center; padding: 0 1.5ch; margin-left: auto; border-right: 0; border-left: 1px solid var(--rule); color: var(--dim); }
+
+/* (2) the pane: fixed-height lines with a 2-column gutter */
+main { display: block; max-width: 72ch; margin: 0 auto; padding: 1.6em 2ch; }
+main:focus { outline: none; } /* skip-link target only; it is not a control */
+.ln { position: relative; padding-left: 2ch; white-space: pre-wrap; overflow-wrap: break-word; scroll-margin: 48px 0 5em; }
+.ln::before { position: absolute; left: 0; }
+.c { color: var(--dim); }
+.c::before { content: "#"; content: "#" / ""; }
+.cmd::before { content: "$"; content: "$" / ""; color: var(--link); }
+.cmd pre { display: inline; font: inherit; white-space: pre-wrap; overflow-wrap: break-word; }
+.gap { height: 1.6em; }
+.b, .sw, .steps { padding-left: 2ch; }
+.b { list-style: "- "; }
+.sw { list-style: none; padding-left: 0; }
+.b > .ln { padding-left: 0; }
+.sw svg { vertical-align: -.15em; outline: 1px solid var(--rule); }
+.steps > li { padding-left: 1ch; }
+.steps > li::marker { color: var(--dim); }
+.steps > li > .ln { padding-left: 0; }
+.steps > li > .c, .steps > li > .cmd { padding-left: 2ch; }
+.caution { color: var(--warn); }
+.caution strong { color: #2a1f45; background: #e0902f; font-weight: normal; padding: 0 .5ch; }
+.pre { overflow-x: auto; color: var(--dim); }
+.pre pre { font: inherit; }
+/* the cursor bar sits left of the row, outside the $ and # gutter */
+.ln:focus, .ln:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 0;
+  background: var(--cur-bg); box-shadow: -6px 0 0 var(--accent);
+}
+.ln:focus, .ln:focus *, .ln:focus::before { color: var(--cur-fg); }
+.ln:focus button { border-color: var(--cur-fg); }
+/* roadmap rows: tag, phases, text. Wrapped text stays in its column */
+.st { display: grid; grid-template-columns: 10ch 6ch 1fr; }
+
+.tag { --t: #cfc3ff; color: var(--t); }
+.t-ok { --t: #7cf5d0; }
+.t-next { --t: #ffcc4d; }
+.t-warn { --t: #e0902f; }
+
+button {
+  font: inherit; color: var(--dim); background: none; cursor: pointer;
+  border: 1px solid var(--rule); padding: 0 1ch;
+}
+button:hover { color: var(--fg); border-color: var(--fg); }
+
+/* Snib: whole-pixel multiples only, with 4 art pixels of clear space */
+.snib { float: right; padding: 16px; margin: -16px -16px 0 0; }
+.snib svg, .poses svg { display: block; }
+.snib figcaption { text-align: center; }
+.idle .f { opacity: 0; }
+.idle .f0 { opacity: 1; }
+.idle.play .f { animation: frame 2s step-end infinite; }
+.idle.play .f1 { animation-delay: -1.5s; }
+.idle.play .f2 { animation-delay: -1s; }
+.idle.play .f3 { animation-delay: -.5s; }
+@keyframes frame { 0% { opacity: 1; } 25%, 100% { opacity: 0; } }
+.poses { display: flex; flex-wrap: wrap; gap: 2ch; list-style: none; padding: 1.6em 0 0; }
+.poses figure { padding: 8px; text-align: center; }
+@media (max-width: 899px) {
+  .snib { float: none; padding: 8px; margin: 0; }
+  .snib svg { width: 64px; height: 64px; }
+}
+@media (prefers-color-scheme: light) {
+  /* the Highlight outline vanishes on a Highlight page: show Snib on an Ink tile with 4 art pixels of clear space */
+  .snib svg, .poses svg { box-sizing: content-box; background: #2a1f45; padding: 16px; }
+  .poses svg { padding: 8px; }
+}
+@media (prefers-color-scheme: light) and (max-width: 899px) {
+  .snib svg { padding: 8px; }
+}
+
+/* (3) the status and prompt line */
+.bot { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2; background: var(--bg); border-top: 1px solid var(--rule); }
+.out { position: absolute; bottom: 100%; left: 0; right: 0; padding: 0 2ch; background: var(--bg); color: var(--dim); }
+.out.ok { color: var(--ok); }
+.out.err { color: var(--err); }
+.row { display: flex; align-items: center; gap: 2ch; padding: .2em 2ch; white-space: nowrap; }
+.ps, .hb { flex: none; }
+.ps .u { color: var(--ok); }
+.ps .w { color: var(--link); }
+.field { position: relative; flex: 1 1 10ch; min-width: 0; }
+.field input { width: 100%; font: inherit; color: var(--fg); background: none; border: 0; padding: 0; caret-color: var(--accent); }
+.field input:focus { outline: none; }
+.field:focus-within { box-shadow: 0 2px var(--accent); }
+.chip { color: var(--dim); overflow: hidden; text-overflow: ellipsis; }
+.hints { color: var(--dim); white-space: pre; }
+.no-js .field { visibility: hidden; }
+.no-js .ps, .no-js .hints { display: none; } /* the prompt and the keys need keys.js; the tab links do not */
+/* with JS: a block caret drawn at the text cursor (--x columns in); the real caret is hidden */
+.js-caret .field input { caret-color: transparent; }
+.caret { display: none; position: absolute; top: 0; bottom: 0; left: calc(var(--x, 0) * 1ch); width: 1ch; background: var(--accent); pointer-events: none; }
+.js-caret .field:focus-within .caret { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .js-caret .field:focus-within .caret { animation: blink 1s step-end infinite; }
+}
+@keyframes blink { 50% { opacity: 0; } }
+@media (max-width: 960px) { .chip { display: none; } }
+@media (max-width: 600px) {
+  .hints, .ps .u, .ps .at { display: none; }
+  .steps { padding-left: 3ch; }
+}
+
+dialog { max-width: min(64ch, 92vw); background: var(--bg); color: var(--fg); border: 1px solid var(--rule); padding: 1.6em 2ch; }
+dialog::backdrop { background: #2a1f45; opacity: .85; }
+dialog p, dialog dl { margin-top: 1.6em; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 0 2ch; }
+dt { color: var(--accent); }
+dd { margin: 0; }
+
+@media (forced-colors: active) {
+  .ln:focus { outline: 2px solid Highlight; }
+  .top a[aria-current] { text-decoration: underline; }
+  .snib svg, .poses svg, .sw svg { forced-color-adjust: none; }
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'">
+<meta name="color-scheme" content="dark light">
+<meta name="referrer" content="no-referrer">
+<title>how · agentbox</title>
+<meta name="description" content="how agentbox works, in five parts. four are built. the agent runtime is designed.">
+<meta property="og:title" content="how · agentbox">
+<meta property="og:description" content="how agentbox works, in five parts. four are built. the agent runtime is designed.">
+<meta property="og:image" content="https://dbabi.github.io/agentbox-web/social-preview.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+<link rel="stylesheet" href="../style.css">
+<script src="../keys.js" defer></script>
+</head>
+<body data-cmd="go run github.com/dbabi/agentbox-web@latest">
+<a class="skip" href="#main">skip to content</a>
+<header class="top">
+<nav aria-label="pages"><ul>
+<li class="brand"><span aria-hidden="true">▣</span> agentbox</li>
+<li><a href="../" data-slug="home"><span class="k" aria-hidden="true">1</span>home</a></li>
+<li><a href="../install/" data-slug="install"><span class="k" aria-hidden="true">2</span>install</a></li>
+<li><a href="../how/" data-slug="how" aria-current="page"><span class="k" aria-hidden="true">3</span>how</a></li>
+<li><a href="../security/" data-slug="security"><span class="k" aria-hidden="true">4</span>security</a></li>
+<li><a href="../roadmap/" data-slug="roadmap"><span class="k" aria-hidden="true">5</span>roadmap</a></li>
+<li><a href="../docs/" data-slug="docs"><span class="k" aria-hidden="true">6</span>docs</a></li>
+<li><a href="../snib/" data-slug="snib"><span class="k" aria-hidden="true">7</span>snib</a></li>
+<li class="ver">v0 alpha</li>
+</ul></nav>
+</header>
+<main id="main" tabindex="-1">
+<figure class="snib"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="128" height="128" shape-rendering="crispEdges" role="img"><title>Snib, the agentbox mascot, thinking, with a thought bubble</title><path fill="#f6f2ff" d="M13 0h5v1h-5zM20 0h11v1h-11zM12 1h2v1h-2zM17 1h4v1h-4zM30 1h2v1h-2zM12 2h1v1h-1zM14 2h3v1h-3zM18 2h2v1h-2zM31 2h1v1h-1zM11 3h2v1h-2zM14 3h3v1h-3zM18 3h2v1h-2zM31 3h1v1h-1zM11 4h1v1h-1zM19 4h1v1h-1zM31 4h1v1h-1zM11 5h1v1h-1zM19 5h2v1h-2zM30 5h2v1h-2zM11 6h1v1h-1zM19 6h12v1h-12zM11 7h1v1h-1zM19 7h1v1h-1zM26 7h2v1h-2zM30 7h2v1h-2zM11 8h1v1h-1zM19 8h1v1h-1zM26 8h1v1h-1zM31 8h1v1h-1zM11 9h1v1h-1zM19 9h1v1h-1zM26 9h1v1h-1zM31 9h1v1h-1zM6 10h9v1h-9zM16 10h12v1h-12zM30 10h2v1h-2zM5 11h2v1h-2zM27 11h4v1h-4zM4 12h2v1h-2zM28 12h1v1h-1zM3 13h2v1h-2zM28 13h1v1h-1zM2 14h2v1h-2zM28 14h1v1h-1zM2 15h1v1h-1zM28 15h1v1h-1zM2 16h1v1h-1zM28 16h1v1h-1zM2 17h1v1h-1zM28 17h1v1h-1zM2 18h1v1h-1zM28 18h1v1h-1zM2 19h1v1h-1zM28 19h1v1h-1zM2 20h1v1h-1zM28 20h1v1h-1zM2 21h1v1h-1zM28 21h1v1h-1zM2 22h1v1h-1zM28 22h1v1h-1zM2 23h1v1h-1zM28 23h1v1h-1zM2 24h1v1h-1zM28 24h1v1h-1zM2 25h1v1h-1zM27 25h2v1h-2zM2 26h1v1h-1zM26 26h2v1h-2zM2 27h1v1h-1zM25 27h2v1h-2zM2 28h2v1h-2zM24 28h2v1h-2zM3 29h2v1h-2zM11 29h5v1h-5zM22 29h3v1h-3zM4 30h2v1h-2zM10 30h2v1h-2zM15 30h2v1h-2zM21 30h2v1h-2zM5 31h6v1h-6zM16 31h6v1h-6z"/><path fill="#5a43b0" d="M14 1h3v1h-3zM13 2h1v1h-1zM17 2h1v1h-1zM13 3h1v1h-1zM17 3h1v1h-1zM15 10h1v1h-1zM15 11h1v1h-1zM15 12h1v1h-1zM15 13h1v1h-1zM25 20h1v1h-1zM26 24h1v1h-1zM25 25h1v1h-1zM24 26h1v1h-1zM4 27h20v1h-20z"/><path fill="#2a1f45" d="M21 1h9v1h-9zM20 2h1v1h-1zM30 2h1v1h-1zM20 3h1v1h-1zM22 3h1v1h-1zM25 3h1v1h-1zM28 3h1v1h-1zM30 3h1v1h-1zM12 4h7v1h-7zM20 4h1v1h-1zM30 4h1v1h-1zM12 5h1v1h-1zM18 5h1v1h-1zM21 5h9v1h-9zM12 6h1v1h-1zM15 6h1v1h-1zM18 6h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM18 7h1v1h-1zM28 7h2v1h-2zM12 8h1v1h-1zM18 8h1v1h-1zM27 8h1v1h-1zM30 8h1v1h-1zM12 9h7v1h-7zM27 9h1v1h-1zM30 9h1v1h-1zM28 10h2v1h-2zM7 11h8v1h-8zM16 11h11v1h-11zM6 12h1v1h-1zM27 12h1v1h-1zM5 13h1v1h-1zM27 13h1v1h-1zM4 14h1v1h-1zM27 14h1v1h-1zM3 15h1v1h-1zM27 15h1v1h-1zM3 16h1v1h-1zM27 16h1v1h-1zM3 17h1v1h-1zM27 17h1v1h-1zM3 18h1v1h-1zM27 18h1v1h-1zM3 19h1v1h-1zM8 19h3v1h-3zM18 19h3v1h-3zM27 19h1v1h-1zM3 20h1v1h-1zM8 20h1v1h-1zM10 20h2v1h-2zM17 20h1v1h-1zM19 20h2v1h-2zM27 20h1v1h-1zM3 21h1v1h-1zM8 21h4v1h-4zM17 21h4v1h-4zM27 21h1v1h-1zM3 22h1v1h-1zM8 22h2v1h-2zM11 22h1v1h-1zM17 22h2v1h-2zM20 22h1v1h-1zM27 22h1v1h-1zM3 23h1v1h-1zM9 23h2v1h-2zM18 23h2v1h-2zM27 23h1v1h-1zM3 24h1v1h-1zM27 24h1v1h-1zM3 25h1v1h-1zM14 25h2v1h-2zM26 25h1v1h-1zM3 26h1v1h-1zM25 26h1v1h-1zM3 27h1v1h-1zM24 27h1v1h-1zM4 28h20v1h-20zM5 29h1v1h-1zM10 29h1v1h-1zM16 29h1v1h-1zM21 29h1v1h-1zM6 30h4v1h-4zM17 30h4v1h-4z"/><path fill="#f6f2ff" d="M21 2h9v1h-9zM21 3h1v1h-1zM23 3h2v1h-2zM26 3h2v1h-2zM21 4h7v1h-7zM13 5h1v1h-1zM28 8h2v1h-2zM28 9h1v1h-1zM7 12h1v1h-1zM6 13h1v1h-1zM5 14h1v1h-1zM4 15h19v1h-19zM5 17h2v1h-2zM5 18h1v1h-1zM9 20h1v1h-1zM18 20h1v1h-1z"/><path fill="#cfc3ff" d="M29 3h1v1h-1zM28 4h2v1h-2zM29 9h1v1h-1zM8 12h7v1h-7zM16 12h10v1h-10zM7 13h7v1h-7zM17 13h8v1h-8zM6 14h18v1h-18z"/><path fill="#ffcc4d" d="M14 5h4v1h-4zM13 6h2v1h-2zM16 6h1v1h-1zM13 7h2v1h-2zM16 7h1v1h-1zM25 21h1v1h-1z"/><path fill="#e0902f" d="M17 6h1v1h-1zM17 7h1v1h-1zM13 8h5v1h-5z"/><path fill="#7259d1" d="M26 12h1v1h-1zM14 13h1v1h-1zM16 13h1v1h-1zM25 13h2v1h-2zM24 14h3v1h-3zM23 15h4v1h-4zM23 16h4v1h-4zM23 17h4v1h-4zM23 18h4v1h-4zM23 19h2v1h-2zM26 19h1v1h-1zM23 20h2v1h-2zM26 20h1v1h-1zM23 21h2v1h-2zM26 21h1v1h-1zM10 22h1v1h-1zM19 22h1v1h-1zM23 22h4v1h-4zM23 23h4v1h-4zM23 24h3v1h-3zM23 25h2v1h-2zM23 26h1v1h-1zM7 29h3v1h-3zM18 29h3v1h-3z"/><path fill="#a48df5" d="M4 16h19v1h-19zM4 17h1v1h-1zM7 17h16v1h-16zM4 18h1v1h-1zM6 18h17v1h-17zM4 19h4v1h-4zM11 19h7v1h-7zM21 19h2v1h-2zM4 20h4v1h-4zM12 20h5v1h-5zM21 20h2v1h-2zM4 21h4v1h-4zM12 21h5v1h-5zM21 21h2v1h-2zM4 22h4v1h-4zM12 22h5v1h-5zM21 22h2v1h-2zM4 23h5v1h-5zM11 23h7v1h-7zM20 23h3v1h-3zM4 24h1v1h-1zM7 24h13v1h-13zM22 24h1v1h-1zM4 25h10v1h-10zM16 25h7v1h-7zM4 26h19v1h-19zM6 29h1v1h-1zM17 29h1v1h-1z"/><path fill="#7cf5d0" d="M25 19h1v1h-1z"/><path fill="#ff8fb8" d="M5 24h2v1h-2zM20 24h2v1h-2z"/></svg></figure>
+<h1 class="ln c" tabindex="-1">~/how</h1>
+<p class="ln c" tabindex="-1">how agentbox works, in five parts. four are built. the agent runtime is designed.</p>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">1. unattended encrypted install from one seed <span class="tag t-ok">[built]</span></p>
+<p class="ln c" tabindex="-1">agentbox seed checks every input, then writes the autoinstall seed.</p>
+<p class="ln c" tabindex="-1">the install stops before any disk write unless the serial matches exactly one disk.</p>
+<p class="ln c" tabindex="-1">disk encryption: tpm2+tang (the default), tpm2, or none. a recovery key unlocks it offline.</p>
+<ul class="b">
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/docs/wiki/Encryption-and-Recovery.md">Encryption and recovery</a></li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">2. A/B generations: build offline, boot once, keep only if healthy <span class="tag t-ok">[built]</span></p>
+<p class="ln c" tabindex="-1">each OS version is a btrfs subvolume with its own /boot directory.</p>
+<p class="ln c" tabindex="-1">os plan and os apply build a package change in a container with no network.</p>
+<p class="ln c" tabindex="-1">the new generation boots once. a health check commits it. anything else falls back.</p>
+<ul class="b">
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/docs/wiki/Generations-and-Updates.md">Generations and updates</a></li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">3. signed reproducible releases <span class="tag t-ok">[built]</span></p>
+<p class="ln c" tabindex="-1">make release builds a tarball and a minisign signature.</p>
+<p class="ln c" tabindex="-1">a Linux CI build and a Mac rebuild are byte-identical before signing.</p>
+<p class="ln c" tabindex="-1">first boot checks a pinned SHA-256, then the signature. there is no official release yet.</p>
+<div class="ln cmd" tabindex="-1"><pre><code>make release VERSION=0.0.1 MINISIGN_KEY=&#34;$HOME/<wbr>agentbox-keys/<wbr>minisign.key&#34;</code></pre> <button type="button" class="js copy" aria-label="copy command" hidden>copy</button></div>
+<ul class="b">
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/docs/wiki/Release-Pipeline.md">Release pipeline</a></li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">4. host services: firewall, auditd hash chain, rootd resolver <span class="tag t-ok">[built]</span></p>
+<p class="ln c" tabindex="-1">the firewall limits each agentbox service user to its own destinations.</p>
+<p class="ln c" tabindex="-1">auditd records each operation durably before it runs, in a hash-chained log.</p>
+<p class="ln c" tabindex="-1">rootd resolves names for the brokers and fills their firewall sets.</p>
+<ul class="b">
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/docs/wiki/Architecture.md">Architecture</a></li>
+</ul>
+<div class="gap"></div>
+<p class="ln c" tabindex="-1">5. the agent runtime: task containers, brokers, approvals <span class="tag t-dim">[designed]</span></p>
+<p class="ln c" tabindex="-1">one disposable container per task, with no network and a fresh HOME.</p>
+<p class="ln c" tabindex="-1">brokers hold the keys and act for the task. a human signs risky operations.</p>
+<ul class="b">
+<li class="ln" tabindex="-1"><a href="https://github.com/dbabi/agentbox/blob/main/docs/design/ARCHITECTURE.md">Design notes: ARCHITECTURE.md</a></li>
+</ul>
+<div class="gap"></div>
+<figure class="pre" aria-hidden="true"><pre> laptop: signs approvals (designed)
+        |
+ +------v--------------------------------------+
+ | agentbox host: stock Ubuntu Server 26.04    |
+ |  task container --sockets--&gt; brokers -----------&gt; internet
+ |  no network, no keys         proxy keys git |
+ |  (designed)                  (designed)     |
+ |  ------------------------------------------ |
+ |  built: firewall  auditd  rootd (skeleton)  |
+ |         quotas  generations  releases LUKS2 |
+ +---------------------------------------------+</pre></figure>
+<p class="ln c" tabindex="-1">the same picture in words:</p>
+<ul class="b">
+<li class="ln" tabindex="-1">a task container has no network and no keys. <span class="tag t-dim">[designed]</span></li>
+<li class="ln" tabindex="-1">it talks to brokers over unix sockets. only brokers reach the internet. <span class="tag t-dim">[designed]</span></li>
+<li class="ln" tabindex="-1">risky operations wait for a signature from your laptop. <span class="tag t-dim">[designed]</span></li>
+<li class="ln" tabindex="-1">under them, the built layer: firewall, auditd, the rootd skeleton, disk quotas, OS generations, signed releases and LUKS2 disk encryption. <span class="tag t-ok">[built]</span></li>
+</ul>
+</main>
+<footer class="bot">
+<p id="out" class="out" aria-live="polite"></p>
+<div class="row">
+<label for="prompt" class="ps"><span class="u">snib@agentbox</span><span class="at">:</span><span class="w">~/how</span>$</label>
+<span class="field"><input id="prompt" maxlength="64" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="out"><span class="caret" aria-hidden="true"></span></span>
+<span class="chip">early alpha · VMs only · no agent runtime yet</span>
+<span class="hints" aria-hidden="true">j/k move  enter open  / prompt</span>
+<button type="button" class="js hb" id="helpbtn" hidden>? help</button>
+</div>
+</footer>
+<dialog id="help" aria-labelledby="help-h">
+<h2 id="help-h"># keys</h2>
+<dl>
+<dt>1-7</dt><dd>jump to a tab</dd>
+<dt>h l, ← →, [ ]</dt><dd>previous or next tab</dd>
+<dt>j k, ↓ ↑</dt><dd>move the line cursor</dd>
+<dt>g G</dt><dd>top or bottom</dd>
+<dt>space</dt><dd>page down</dd>
+<dt>enter</dt><dd>open a link, or copy a $ line</dd>
+<dt>c</dt><dd>copy go run github.com/dbabi/agentbox-web@latest</dd>
+<dt>/ or :</dt><dd>focus the prompt: try help, ls, cd security, keys off</dd>
+<dt>esc</dt><dd>leave the prompt, close help</dd>
+<dt>?</dt><dd>this help</dd>
+<dt>m</dt><dd>pause or play motion</dd>
+</dl>
+<p># single-key shortcuts never fire in the prompt or with ctrl, alt or cmd held.</p>
+<p><button type="button" id="keys">keys: on</button> <span class="dim">turn them off if they get in your way. saved in this browser.</span></p>
+<form method="dialog"><button>close (esc)</button></form>
+</dialog>
+</body>
+</html>
